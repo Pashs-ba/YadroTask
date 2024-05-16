@@ -10,6 +10,7 @@ class EventBase {
 
   friend std::ostream&
   operator<<(std::ostream& stream, const EventBase& event);
+  virtual ~EventBase() = default;
  protected:
   virtual void
   print(std::ostream& ostream) const = 0;
