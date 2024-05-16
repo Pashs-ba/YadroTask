@@ -1,9 +1,13 @@
 #include <iostream>
-#include "lib/utils/TimeConverter.h"
-
+#include "lib/processor/Processor.h"
 
 int main() {
-
-    std::cout << utils::TimeConverter::toMinutes("23:59").value() << std::endl;
+    int type;
+    Processor processor{
+      1,
+      1,
+      1000,
+      2000
+    };
     return 0;
 }
