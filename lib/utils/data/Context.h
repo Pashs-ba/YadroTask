@@ -4,7 +4,7 @@
 #include<string_view>
 #include "Table.h"
 
-namespace data {
+namespace utils::data {
 struct Context {
   const uint32_t start_time;
   const uint32_t end_time;

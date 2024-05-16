@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstdint>
-namespace data {
+namespace utils::data {
 struct Table {
   bool busy = false;
   uint32_t busy_from = 0;

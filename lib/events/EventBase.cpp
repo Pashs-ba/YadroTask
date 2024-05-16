@@ -3,3 +3,7 @@
 //
 
 #include "EventBase.h"
+std::ostream& operator<<(std::ostream& stream, const EventBase& event) {
+  event.print(stream);
+  return stream;
+}

@@ -16,12 +16,13 @@ class Processor {
       uint32_t end_time) : context_(start_time,
                                     end_time,
                                     cost_of_hour,
-                                    std::vector<data::Table>(table_count)) {};
+                                    std::vector<utils::data::Table>(table_count)) {};
   template<typename T>
-  inline auto submit(const T& event) noexcept {
+  inline auto
+  submit(const T& event) noexcept {
     return event.submit(context_);
   }
  private:
-  data::Context context_;
+  utils::data::Context context_;
 };
 
