@@ -2,5 +2,7 @@ add_library(events EventBase/EventBase.h EventBase/EventBase.cpp
         IncomeEvent/IncomeEvent.cpp
         IncomeEvent/IncomeEvent.h
         ErrorEvent/ErrorEvent.cpp
-        ErrorEvent/ErrorEvent.h)
+        ErrorEvent/ErrorEvent.h
+        SitEvent/SitEvent.cpp
+        SitEvent/SitEvent.h)
 target_link_libraries(events PRIVATE utils)
