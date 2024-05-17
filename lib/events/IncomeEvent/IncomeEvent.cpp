@@ -21,3 +21,6 @@ IncomeEvent::submit(utils::data::Context& context) const noexcept {
   context.current_users[client_] = -1;
   return std::nullopt;
 }
+void IncomeEvent::print(std::ostream& ostream) const noexcept {
+  ostream << time_ << ' ' << 1 << client_;
+}

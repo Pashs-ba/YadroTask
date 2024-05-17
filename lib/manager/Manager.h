@@ -1,16 +1,10 @@
 #pragma once
+#include<optional>
+#include "../events/EventBase/EventBase.h"
 
-#include <cstdint>
-#include <vector>
-#include <unordered_map>
-#include <string_view>
-#include "lib/utils/data/Table.h"
-#include "lib/utils/data/Context.h"
-#include "lib/events/EventBase/EventBase.h"
-
-class Processor {
+class Manager {
  public:
-  Processor(
+  Manager(
       uint32_t table_count,
       uint32_t cost_of_hour,
       uint32_t start_time,
@@ -18,12 +12,8 @@ class Processor {
                                     end_time,
                                     cost_of_hour,
                                     std::vector<utils::data::Table>{table_count}} {};
-
   std::optional<std::unique_ptr<EventBase>>
-  submit(const std::unique_ptr<EventBase>& event) noexcept {
-    return event->submit(context_);
-  }
+  submit(const std::unique_ptr<EventBase>& event) noexcept;
  private:
   utils::data::Context context_;
 };
-

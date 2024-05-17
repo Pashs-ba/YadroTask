@@ -14,5 +14,5 @@ class IncomeEvent : public EventBase {
   std::string_view client_;
 
   void
-  print(std::ostream& ostream) const noexcept override {};
+  print(std::ostream& ostream) const noexcept override;
 };
