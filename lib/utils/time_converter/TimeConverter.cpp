@@ -10,8 +10,7 @@ inline std::optional<uint32_t> from_chars(const char* start, const char* end) no
   return ans;
 }
 
-std::optional<uint32_t> toMinutes(const std::string& ss) noexcept {
-  std::string_view sv = ss;
+std::optional<uint32_t> toMinutes(const std::string_view& sv) noexcept {
   if (sv.size() != 5 || sv[2] != ':') {
     return std::nullopt;
   }

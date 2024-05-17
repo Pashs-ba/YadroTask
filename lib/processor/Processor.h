@@ -6,7 +6,7 @@
 #include <string_view>
 #include "lib/utils/data/Table.h"
 #include "lib/utils/data/Context.h"
-#include "lib/events/EventBase.h"
+#include "lib/events/EventBase/EventBase.h"
 
 class Processor {
  public:
@@ -14,12 +14,12 @@ class Processor {
       uint32_t table_count,
       uint32_t cost_of_hour,
       uint32_t start_time,
-      uint32_t end_time) : context_(start_time,
+      uint32_t end_time) : context_{start_time,
                                     end_time,
                                     cost_of_hour,
-                                    std::vector<utils::data::Table>(table_count)) {};
+                                    std::vector<utils::data::Table>{table_count}} {};
 
-  inline auto
+  std::optional<std::unique_ptr<EventBase>>
   submit(const std::unique_ptr<EventBase>& event) noexcept {
     return event->submit(context_);
   }

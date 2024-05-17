@@ -1,6 +1,6 @@
 #include <iostream>
 #include "lib/processor/Processor.h"
-#include "lib/events/IncomeEvent.h"
+#include "lib/events/IncomeEvent/IncomeEvent.h"
 
 int main() {
   int type;
@@ -10,7 +10,7 @@ int main() {
       1000,
       2000
   };
-  auto result = processor.submit(std::make_unique<IncomeEvent>());
+  auto result = processor.submit(std::make_unique<IncomeEvent>("123", std::string_view("some")));
   std::cout << *result;
   return 0;
 }
