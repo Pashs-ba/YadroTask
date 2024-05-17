@@ -16,4 +16,5 @@ class Manager {
   submit(const std::unique_ptr<EventBase>& event) noexcept;
  private:
   utils::data::Context context_;
+
 };
