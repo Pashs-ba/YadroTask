@@ -4,10 +4,10 @@
 class SitEvent : public EventBase {
  public:
   SitEvent(const std::string_view& time,
-           std::string_view client,
+           std::string client,
            int32_t table_id)
       : EventBase{time},
-        client_{client},
+        client_{std::move(client)},
         table_id_{table_id} {};
 
   std::optional<std::unique_ptr<EventBase>>
@@ -15,7 +15,7 @@ class SitEvent : public EventBase {
  protected:
   void print(std::ostream& ostream) const noexcept override;
  private:
-  std::string_view client_;
+  std::string client_;
   int32_t table_id_;
 };
 

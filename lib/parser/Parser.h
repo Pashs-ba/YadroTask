@@ -13,7 +13,7 @@ parse_event(const std::string& event) noexcept;
 
 };
 namespace Parser::inner {
-std::optional<std::string_view>
+std::optional<std::string>
 parse_name(std::string_view body) noexcept;
 
 std::optional<std::unique_ptr<EventBase>>

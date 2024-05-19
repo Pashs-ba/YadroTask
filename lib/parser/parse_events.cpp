@@ -9,13 +9,13 @@
 #include "../events/LeftEvent/LeftEvent.h"
 #include "../events/WaitEvent/WaitEvent.h"
 
-std::optional<std::string_view>
+std::optional<std::string>
 Parser::inner::parse_name(std::string_view body) noexcept {
   auto whitespace = body.find(' ');
   if (whitespace == std::string::npos) {
     whitespace = body.size();
   }
-  std::string_view name{body.data(), whitespace};
+  std::string name{body.data(), whitespace};
   if (name.empty()) {
     return std::nullopt;
   }

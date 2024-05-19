@@ -3,9 +3,9 @@
 #include "../EventBase/EventBase.h"
 class LeftEvent : public EventBase {
  public:
-  LeftEvent(std::string_view time, std::string_view client) :
+  LeftEvent(std::string_view time, std::string client) :
       EventBase(time),
-      client_(client) {};
+      client_(std::move(client)) {};
 
   std::optional<std::unique_ptr<EventBase>>
   submit(utils::data::Context& context) const noexcept override;
@@ -13,6 +13,6 @@ class LeftEvent : public EventBase {
   void
   print(std::ostream& ostream) const noexcept override;
  private:
-  std::string_view client_;
+  std::string client_;
 };
 

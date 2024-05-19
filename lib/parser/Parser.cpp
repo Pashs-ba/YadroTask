@@ -68,8 +68,8 @@ Parser::parse_event(const std::string& event) noexcept {
   switch (id_task.value()) {
     case 1:return Parser::inner::parse_income(sv_time, sv_body);
     case 2:return Parser::inner::parse_sit(sv_time, sv_body);
-    case 3:return Parser::inner::parse_leave(sv_time, sv_body);
-    case 4:return Parser::inner::parse_wait(sv_time, sv_body);
+    case 3:return Parser::inner::parse_wait(sv_time, sv_body);
+    case 4:return Parser::inner::parse_leave(sv_time, sv_body);
     default:return std::nullopt;
   }
 }

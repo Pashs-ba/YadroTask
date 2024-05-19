@@ -5,4 +5,6 @@ add_library(utils
         data/Context.h
         data/Table.h
         NumParser.h
+        TableUtils/TableUtils.h
+        TableUtils/TableUtils.cpp
 )

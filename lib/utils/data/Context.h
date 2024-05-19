@@ -11,7 +11,7 @@ struct Context {
   const uint32_t end_time;
   const uint32_t cost_of_hour;
   std::vector<Table> tables;
-  std::unordered_map<std::string_view, int32_t> current_users;
-  std::queue<std::string_view> queue;
+  std::unordered_map<std::string, int32_t> current_users;
+  std::queue<std::string> queue;
 };
 }
