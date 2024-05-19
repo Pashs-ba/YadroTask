@@ -2,6 +2,7 @@
 #include <string>
 #include "lib/parser/Parser.h"
 int main() {
+
   auto result = Parser::parse_manager_config("10",
                                              "10:20 11:40",
                                              "100");

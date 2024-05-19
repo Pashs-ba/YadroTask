@@ -3,39 +3,6 @@
 #include "Parser.h"
 #include "../utils/time_converter/TimeConverter.h"
 #include "../utils/NumParser.h"
-#include "../events/IncomeEvent/IncomeEvent.h"
-
-std::optional<std::string_view>
-parse_name(std::string_view body) noexcept {
-  auto whitespace = body.find(' ');
-  if (whitespace == std::string::npos) {
-    whitespace = body.size();
-  }
-  std::string_view name{body.data(), whitespace};
-  if (name.empty()) {
-    return std::nullopt;
-  }
-  if (name.find_first_not_of("abcdefghijklmnopqrstuvwxyz"
-                             "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                             "0123456789_-") != std::string::npos) {
-    return std::nullopt;
-  }
-  return name;
-
-}
-
-std::optional<std::unique_ptr<EventBase>>
-parse_income(std::string_view time,
-             std::string_view body) {
-  auto name = parse_name(body);
-  if (!name.has_value()) {
-    return std::nullopt;
-  }
-  if (body.size() != name->size()) {
-    return std::nullopt;
-  }
-  return std::make_unique<IncomeEvent>(time, name.value());
-}
 
 std::variant<Manager, std::string>
 Parser::parse_manager_config(const std::string& table_count_str,
@@ -94,12 +61,15 @@ Parser::parse_event(const std::string& event) noexcept {
   if (!id_task.has_value()) {
     return std::nullopt;
   }
+  auto sv_time = std::string_view{event.data(),
+                                  first_whitespace};
+  auto sv_body = std::string_view{event.data() + second_whitespace + 1,
+                                  event.size() - second_whitespace - 1};
   switch (id_task.value()) {
-    case 1:
-      return parse_income(std::string_view{event.data(),
-                                           first_whitespace},
-                          std::string_view{event.data() + second_whitespace + 1,
-                                           event.size() - second_whitespace - 1});
+    case 1:return Parser::inner::parse_income(sv_time, sv_body);
+    case 2:return Parser::inner::parse_sit(sv_time, sv_body);
+    case 3:return Parser::inner::parse_leave(sv_time, sv_body);
+    case 4:return Parser::inner::parse_wait(sv_time, sv_body);
     default:return std::nullopt;
   }
 }
