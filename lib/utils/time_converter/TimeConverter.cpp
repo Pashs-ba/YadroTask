@@ -1,8 +1,8 @@
 #include <charconv>
+#include <string>
 #include "TimeConverter.h"
 #include "../NumParser.h"
 namespace utils::TimeConverter {
-
 
 std::optional<uint32_t> toMinutes(const std::string_view& sv) noexcept {
   if (sv.size() != 5 || sv[2] != ':') {
@@ -16,5 +16,11 @@ std::optional<uint32_t> toMinutes(const std::string_view& sv) noexcept {
   return first.value() * 60 + second.value();
 }
 
-
+std::string toTime(const uint32_t& minutes) noexcept {
+  auto hours = minutes / 60;
+  auto minutes_ = minutes % 60;
+  auto hours_str = hours < 10 ? '0' + std::to_string(hours) : std::to_string(hours);
+  auto minutes_str = minutes_ < 10 ? '0' + std::to_string(minutes_) : std::to_string(minutes_);
+  return hours_str + ':' + minutes_str;
+}
 }

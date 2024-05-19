@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include "lib/parser/Parser.h"
+#include "lib/utils/time_converter/TimeConverter.h"
 
 int main(int32_t argc, char** argv) {
   if (argc != 2) {
@@ -28,6 +29,7 @@ int main(int32_t argc, char** argv) {
     return 1;
   }
   Manager manager = std::get<Manager>(manager_parse_result);
+  std::cout << manager.get_start_time() << '\n';
   while (!file.eof()) {
     std::string event;
     std::getline(file, event);
@@ -41,6 +43,15 @@ int main(int32_t argc, char** argv) {
     if (result.has_value()) {
       std::cout << *(result.value()) << '\n';
     }
+  }
+  auto result = manager.end_day();
+  for (auto& event : result) {
+    std::cout << *event << '\n';
+  }
+  std::cout << manager.get_end_time() << '\n';
+  auto& tables = manager.get_tables();
+  for (size_t i = 0; i < tables.size(); ++i) {
+    std::cout << i+1 << " " << tables[i].revenue << " " << utils::TimeConverter::toTime(tables[i].busy_time_total) << '\n';
   }
   return 0;
 }

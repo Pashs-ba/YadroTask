@@ -36,7 +36,12 @@ Parser::parse_manager_config(const std::string& table_count_str,
   return Manager{table_count.value(),
                  cost_of_hour.value(),
                  time_open.value(),
-                 time_close.value()};
+                 time_close.value(),
+                 std::string{times.data(),
+                             first_whitespace},
+                 std::string{times.data() + first_whitespace + 1,
+                             times.size() - first_whitespace - 1}
+  };
 }
 
 std::optional<std::unique_ptr<EventBase>>

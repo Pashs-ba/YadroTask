@@ -1,7 +1,6 @@
 #include "SitEvent.h"
 #include "../ErrorEvent/ErrorEvent.h"
 #include "../../utils/time_converter/TimeConverter.h"
-#include "../../utils/TableUtils/TableUtils.h"
 
 std::optional<std::unique_ptr<EventBase>>
 SitEvent::submit(utils::data::Context& context) const noexcept {
@@ -15,7 +14,7 @@ SitEvent::submit(utils::data::Context& context) const noexcept {
   auto current_time = utils::TimeConverter::toMinutes(time_).value();
   if (context.current_users[client_] != -1) {
     auto& prev_table = context.tables[context.current_users[client_]];
-    utils::TableUtils::freeTable(prev_table, context.cost_of_hour, current_time);
+    prev_table.free(context.cost_of_hour, current_time);
   }
   context.tables[table_index].busy_from = current_time;
   context.tables[table_index].busy = true;
