@@ -14,12 +14,7 @@ Parser::parse_manager_config(const std::string& table_count_str,
   if (!table_count.has_value()) {
     return table_count_str;
   }
-  auto cost_of_hour = utils::NumParser::from_chars<uint32_t>(
-      cost_of_hour_str.data(),
-      cost_of_hour_str.data() + cost_of_hour_str.size());
-  if (!cost_of_hour.has_value()) {
-    return cost_of_hour_str;
-  }
+
   auto first_whitespace = times.find(' ');
   auto time_open = utils::TimeConverter::toMinutes(
       std::string_view{times.data(),
@@ -32,6 +27,12 @@ Parser::parse_manager_config(const std::string& table_count_str,
   }
   if (time_open.value() >= time_close.value()) { // not saied in the task
     return times;
+  }
+  auto cost_of_hour = utils::NumParser::from_chars<uint32_t>(
+      cost_of_hour_str.data(),
+      cost_of_hour_str.data() + cost_of_hour_str.size());
+  if (!cost_of_hour.has_value()) {
+    return cost_of_hour_str;
   }
   return Manager{table_count.value(),
                  cost_of_hour.value(),
@@ -66,9 +67,9 @@ Parser::parse_event(const std::string& event) noexcept {
   if (!id_task.has_value()) {
     return std::nullopt;
   }
-  auto sv_time = std::string_view{event.data(),
+  auto sv_time = std::string{event.data(),
                                   first_whitespace};
-  auto sv_body = std::string_view{event.data() + second_whitespace + 1,
+  auto sv_body = std::string{event.data() + second_whitespace + 1,
                                   event.size() - second_whitespace - 1};
   switch (id_task.value()) {
     case 1:return Parser::inner::parse_income(sv_time, sv_body);

@@ -1,6 +1,7 @@
 #pragma once
 #include<ostream>
 #include<optional>
+#include<memory>
 #include "../../utils/data/Context.h"
 
 class EventBase {
