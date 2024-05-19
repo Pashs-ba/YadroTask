@@ -11,9 +11,6 @@ IncomeEvent::submit(utils::data::Context& context) const noexcept {
     return std::make_unique<ErrorEvent>(time_, "YouShallNotPass");
   }
   auto current_minutes = utils::TimeConverter::toMinutes(time_);
-  if (!current_minutes.has_value()) {
-    return std::nullopt;
-  }
 
   if (current_minutes < context.start_time || current_minutes > context.end_time) {
     return std::make_unique<ErrorEvent>(time_, "NotOpenYet");
@@ -22,5 +19,5 @@ IncomeEvent::submit(utils::data::Context& context) const noexcept {
   return std::nullopt;
 }
 void IncomeEvent::print(std::ostream& ostream) const noexcept {
-  ostream << time_ << ' ' << 1 << client_;
+  ostream << time_ << " 1 " << client_;
 }

@@ -4,7 +4,7 @@
 
 class IncomeEvent : public EventBase {
  public:
-  IncomeEvent(const std::string_view& time, std::string_view client_)
+  IncomeEvent(std::string_view time, std::string_view client_)
       : EventBase{time},
         client_{client_} {};
 
