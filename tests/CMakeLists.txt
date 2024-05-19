@@ -16,7 +16,8 @@ add_executable(
         yadro_test
         time_converter.cpp
         num_parser.cpp
-        parser.cpp)
+        parser.cpp
+        events.cpp)
 
 target_link_libraries(
         yadro_test

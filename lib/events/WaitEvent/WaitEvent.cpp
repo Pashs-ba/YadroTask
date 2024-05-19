@@ -1,7 +1,3 @@
-//
-// Created by pashs on 17.05.2024.
-//
-
 #include "WaitEvent.h"
 #include "../ErrorEvent/ErrorEvent.h"
 #include "../GoodbyeEvent/GoodbyeEvent.h"
@@ -17,12 +13,13 @@ WaitEvent::submit(utils::data::Context& context) const noexcept {
                   })) {
     return std::make_unique<ErrorEvent>(time_, "ICanWaitNoLonger!");
   }
-  if (context.queue.size() > context.tables.size()) {
+  if (context.queue.size() >= context.tables.size()) {
     return std::make_unique<GoodbyeEvent>(time_, client_);
   }
   context.queue.push(client_);
   return std::nullopt;
 }
+
 void
 WaitEvent::print(std::ostream& ostream) const noexcept {
   ostream << time_ << " 3 " << client_;
